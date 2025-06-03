@@ -1,0 +1,122 @@
+---
+title: "Working in the Tidyverse"
+author: "Trever Yoder"
+format: pdf
+editor: visual
+---
+
+# Task 1
+
+### Question A
+
+```{r}
+#first we need to read in the tidyverse package
+library(tidyverse)
+
+#We cannot use read_csv because it can only read in comma and tab separated values (ours is ";")
+
+#Let's read it in with read_csv2 since it can handle ; delimited files
+data <- read_csv2("data/data.txt", col_names = TRUE)
+
+#Print the output
+data
+```
+
+### Question B
+
+```{r}
+#Read in the data
+data2 <- read_delim("data/data2.txt", col_names = TRUE, delim = "6", col_types = "fdc")
+
+#print the data
+data2
+```
+
+# Task 2
+
+### Question A
+
+```{r}
+#Read in the trailblazer file
+trailblazer <- read.csv("data/trailblazer.csv")
+
+#Glimpse the data
+glimpse(trailblazer)
+```
+
+### Question B
+
+```{r}
+#Pivot the data
+trailblazer_longer <- trailblazer |>
+  pivot_longer(cols = 2:11,
+               names_to = "Location",
+               values_to = "Points") |>
+  separate_wider_delim(cols = "Location",
+                       delim = "_",
+                       names = c("Game", "Location"))
+
+#Print first 5 rows
+trailblazer_longer |>
+  slice(1:5)
+```
+
+### Question C
+On average, Jusuf Nurkic scored more points at home than away during the first 10 games
+```{r}
+trailblazer_wider <- trailblazer_longer |>
+
+  #Create columns for home and away
+  pivot_wider(
+  names_from = "Location",
+  values_from = "Points") |>
+
+  #group so that the mean is calculated per player
+  group_by(Player) |>
+
+  #find means and difference for home vs away
+  mutate(mean_home = mean(Home, na.rm = TRUE),
+         mean_away = mean(Away, na.rm = TRUE),
+         mean_diff = mean_home - mean_away)
+
+#Print the first 11 rows
+trailblazer_wider |>
+  slice(1:11)
+```
+
+# Task 3
+
+### Question A
+1. Meaning of <NULL>: There aren't any of this species on these islands, so there are no values so its an empty cell. 
+2. Meaning of <dbl [52]: There is a vector with 52 numeric (specifically double) elements 
+3. Meaning of <list>: These variables are stored as lists
+```{r}
+#read in the palmerpenguins package
+library(palmerpenguins)
+
+#run the code provided by colleques
+penguins1 <- penguins |>
+select(species, island, bill_length_mm) |>
+pivot_wider(
+names_from = island, values_from = bill_length_mm
+)
+view(penguins)
+```
+
+### Question B
+
+```{r}
+#create the desired table (I dropped the grouping, this was unclear in the directions)
+penguins2 <- penguins |>
+    group_by(species) |>
+  summarise(
+    Bisco = sum(island == "Biscoe", na.rm = TRUE),
+    Dream = sum(island == "Dream", na.rm = TRUE),
+    Torgersen = sum(island == "Torgersen", na.rm = TRUE),
+    .groups = "keep"
+
+)
+
+penguins2
+```
+
