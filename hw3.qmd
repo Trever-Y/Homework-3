@@ -5,7 +5,7 @@ format: pdf
 editor: visual
 ---
 
-# Task 1
+## Task 1
 
 ### Question A
 We cannot use `read_csv` because it can only read in comma and tab separated values (ours is ";")
@@ -30,7 +30,7 @@ data2 <- read_delim("data/data2.txt", col_names = TRUE, delim = "6", col_types =
 data2
 ```
 
-# Task 2
+## Task 2
 
 ### Question A
 
@@ -60,7 +60,7 @@ trailblazer_longer |>
 ```
 
 ### Question C
-On average, Jusuf Nurkic scored more points at home than away during the first 10 games of the season
+On average, Jusuf Nurkic scored more points at home than away during the first 10 games of the season. Below is the code that lead us to this answer!
 ```{r}
 trailblazer_wider <- trailblazer_longer |>
 
@@ -87,7 +87,7 @@ trailblazer_wider |>
 ```
 
 
-# Task 3
+## Task 3
 
 ### Question A
 1. Meaning of `<NULL>`: There aren't any of this species on these islands, so there are no values so its an empty cell, or "undefined". 
@@ -122,7 +122,7 @@ penguins2 <- penguins |>
 #print the table
 penguins2
 ```
-# Task 4
+## Task 4
 
 ### Replacing  NA Values
 
