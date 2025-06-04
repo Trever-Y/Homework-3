@@ -8,12 +8,10 @@ editor: visual
 # Task 1
 
 ### Question A
-
+We cannot use 'read_csv' because it can only read in comma and tab separated values (ours is ";")
 ```{r}
 #first we need to read in the tidyverse package
 library(tidyverse)
-
-#We cannot use read_csv because it can only read in comma and tab separated values (ours is ";")
 
 #Let's read it in with read_csv2 since it can handle ; delimited files
 data <- read_csv2("data/data.txt", col_names = TRUE)
@@ -77,17 +75,22 @@ trailblazer_wider <- trailblazer_longer |>
   #find means and difference for home vs away
   mutate(mean_home = mean(Home, na.rm = TRUE),
          mean_away = mean(Away, na.rm = TRUE),
-         mean_diff = mean_home - mean_away)
+         mean_diff = mean_home - mean_away) |>
+  
+  #arrange in descending order (ungroup first)
+  ungroup() |>
+  arrange(desc(mean_diff))
 
-#Print the first 11 rows
+#Print the first row
 trailblazer_wider |>
-  slice(1:11)
+  slice(1:1)
 ```
+
 
 # Task 3
 
 ### Question A
-1. Meaning of <NULL>: There aren't any of this species on these islands, so there are no values so its an empty cell. 
+1. Meaning of <NULL>: There aren't any of this species on these islands, so there are no values so its an empty cell, or "undefined". 
 2. Meaning of <dbl [52]: There is a vector with 52 numeric (specifically double) elements 
 3. Meaning of <list>: These variables are stored as lists
 ```{r}
@@ -100,23 +103,40 @@ select(species, island, bill_length_mm) |>
 pivot_wider(
 names_from = island, values_from = bill_length_mm
 )
-view(penguins)
+view(penguins1)
 ```
 
 ### Question B
 
 ```{r}
-#create the desired table (I dropped the grouping, this was unclear in the directions)
+#create the desired table
 penguins2 <- penguins |>
     group_by(species) |>
   summarise(
-    Bisco = sum(island == "Biscoe", na.rm = TRUE),
-    Dream = sum(island == "Dream", na.rm = TRUE),
-    Torgersen = sum(island == "Torgersen", na.rm = TRUE),
-    .groups = "keep"
-
+    Biscoe = as.double(sum(island %in% "Biscoe", na.rm = TRUE)),
+    Dream = as.double(sum(island == "Dream", na.rm = TRUE)), #used == vs %n% for fun
+    Torgersen = as.double(sum(island == "Torgersen", na.rm = TRUE)),
+    .groups = "keep" #kept the grouping as shown in the desired table
 )
 
+#print the table
 penguins2
 ```
+# Task 4
 
+### Replacing  NA Values
+
+```{r}
+penguins_full <- penguins |>
+  mutate(bill_length_mm = case_when(
+    species == "Adelie" & is.na(bill_length_mm) ~ 26
+    ,species == "Gentoo" & is.na(bill_length_mm) ~ 30
+    ,TRUE ~ bill_length_mm
+  ))
+  
+
+#print first 10 rows of the table in accending order
+penguins_full |>
+  arrange(bill_length_mm) |>
+  slice(1:10)
+```
