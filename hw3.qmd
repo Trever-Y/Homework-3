@@ -60,7 +60,7 @@ trailblazer_longer |>
 ```
 
 ### Question C
-On average, Jusuf Nurkic scored more points at home than away during the first 10 games
+On average, Jusuf Nurkic scored more points at home than away during the first 10 games of the season
 ```{r}
 trailblazer_wider <- trailblazer_longer |>
 
@@ -91,7 +91,7 @@ trailblazer_wider |>
 
 ### Question A
 1. Meaning of `<NULL>`: There aren't any of this species on these islands, so there are no values so its an empty cell, or "undefined". 
-2. Meaning of `<dbl [52]`: There is a vector with 52 numeric (specifically double) elements 
+2. Meaning of `<dbl [52]>`: There is a vector with 52 numeric (specifically double) elements 
 3. Meaning of `<list>`: These variables are stored as lists
 ```{r}
 #read in the palmerpenguins package
