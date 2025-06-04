@@ -60,7 +60,7 @@ trailblazer_longer |>
 ```
 
 ### Question C
-On average, Jusuf Nurkic scored more points at home than away during the first 10 games of the season. Below is the code that lead us to this answer!
+On average, Jusuf Nurkic scored the most points at home compared to away during the first 10 games of the season. Below is the code that lead us to this answer!
 ```{r}
 trailblazer_wider <- trailblazer_longer |>
 
@@ -97,7 +97,7 @@ trailblazer_wider |>
 #read in the palmerpenguins package
 library(palmerpenguins)
 
-#run the code provided by colleques
+#run the code provided by colleague
 penguins1 <- penguins |>
 select(species, island, bill_length_mm) |>
 pivot_wider(
