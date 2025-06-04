@@ -8,7 +8,7 @@ editor: visual
 # Task 1
 
 ### Question A
-We cannot use 'read_csv' because it can only read in comma and tab separated values (ours is ";")
+We cannot use `read_csv` because it can only read in comma and tab separated values (ours is ";")
 ```{r}
 #first we need to read in the tidyverse package
 library(tidyverse)
@@ -90,9 +90,9 @@ trailblazer_wider |>
 # Task 3
 
 ### Question A
-1. Meaning of <NULL>: There aren't any of this species on these islands, so there are no values so its an empty cell, or "undefined". 
-2. Meaning of <dbl [52]: There is a vector with 52 numeric (specifically double) elements 
-3. Meaning of <list>: These variables are stored as lists
+1. Meaning of `<NULL>`: There aren't any of this species on these islands, so there are no values so its an empty cell, or "undefined". 
+2. Meaning of `<dbl [52]`: There is a vector with 52 numeric (specifically double) elements 
+3. Meaning of `<list>`: These variables are stored as lists
 ```{r}
 #read in the palmerpenguins package
 library(palmerpenguins)
